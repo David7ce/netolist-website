@@ -1,0 +1,26 @@
+---
+import "../styles/header.css";
+
+const navItems = [
+  { name: "Home", href: "/" },
+  { name: "Browse all apps", href: "/browse-apps" },
+  { name: "Log In", href: "/log-in" },
+];
+---
+
+<header class="header">
+  <div class="container">
+    <h1 class="logo"><a href="/">AlternativeTo Light</a></h1>
+    <nav>
+      <ul class="nav">
+        {
+          navItems.map((item) => (
+            <li>
+              <a href={item.href}>{item.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
