@@ -1,6 +1,4 @@
 ---
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { supabase } from "../config/supabaseClient";
 
@@ -14,37 +12,21 @@ if (error) {
 ---
 
 <BaseLayout title={title}>
-    <html lang="en">
-        <head>
-            <meta charset="UTF-8" />
-            <meta
-                name="viewport"
-                content="width=device-width, initial-scale=1.0"
-            />
-            <title>Alternativeto Clone</title>
-        </head>
-        <body>
-            <Header />
+  <main>
+    <h1>Categorías:</h1>
 
-            <main>
-                <h1>Categorías:</h1>
+    {categories ? (
+      <ul>
+        {categories.map((category) => (
+          <li>
+            <a href={`/category/${category.slug}`}>{category.name}</a>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p>Loading categories...</p>
+    )}
 
-                {
-                    categories ? (
-                        <ul>
-                            {categories.map((category) => (
-                                <li>{category.name}</li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <p>Loading categories...</p>
-                    )
-                }
-
-                {error && <p>Error: {error.message}</p>}
-            </main>
-
-            <Footer />
-        </body>
-    </html>
+    {error && <p>Error: {error.message}</p>}
+  </main>
 </BaseLayout>

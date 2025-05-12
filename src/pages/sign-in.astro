@@ -1,0 +1,55 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { signIn } from "../services/auth.js";
+
+let email = "";
+let password = "";
+let message = "";
+
+async function handleSignIn(event: { preventDefault: () => void; }) {
+  event.preventDefault();
+  const result = await signIn(email, password);
+
+  if (result.success) {
+    message = "Login successful! Redirecting...";
+    window.location.href = "/"; // Redirigir al usuario a la página principal
+  } else {
+    message = result.message || "Invalid email or password.";
+  }
+
+  // Actualizar el DOM manualmente
+  const messageElement = document.getElementById("message");
+  if (messageElement) {
+    messageElement.innerText = message;
+  }
+}
+---
+
+<BaseLayout title="Sign In">
+  <main>
+    <h1>Sign In</h1>
+    <form id="sign-in-form" onsubmit="handleSignIn(event)">
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        oninput="email = this.value"
+      />
+
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        required
+        oninput="password = this.value"
+      />
+
+      <button type="submit">Login</button>
+    </form>
+
+    <p id="message">{message}</p>
+  </main>
+</BaseLayout>

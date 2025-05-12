@@ -1,44 +1,25 @@
 ---
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getPopularApps } from "../services/supabase.js";
-import { supabase } from "../config/supabaseClient";
+import { getTopApps } from "../services/supabase.js";
 
 // Obtiene las apps populares desde Supabase
 const title = "Home - AlternativeTo Clone";
-const popularApps = await getPopularApps();
+const popularApps = await getTopApps();
 console.log("Popular Apps:", popularApps);
 ---
 
 <BaseLayout title={title}>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Alternativeto Clone</title>
-    </head>
-    <body>
-      <Header />
-
-      <main>
-        <h1>Popular Apps</h1>
-        <!-- <pre>{JSON.stringify(popularApps, null, 2)}</pre> -->
-        {popularApps.length === 0 && <p>No popular apps found.</p>}
-        <div class="apps-list">
-          {
-            popularApps.map((app) => (
-              <div class="app-card">
-                <h2>{app.name}</h2>
-                <p>{app.description}</p>
-                <a href={`/app/${app.id}`}>Learn more</a>
-              </div>
-            ))
-          }
+  <main>
+    <h1>Popular Apps</h1>
+    {popularApps.length === 0 && <p>No popular apps found.</p>}
+    <div class="apps-list">
+      {popularApps.map((app) => (
+        <div class="app-card">
+          <h2>{app.name}</h2>
+          <p>{app.description}</p>
+          <a href={`/app/${app.id}`}>Learn more</a>
         </div>
-      </main>
-
-      <Footer />
-    </body>
-  </html>
+      ))}
+    </div>
+  </main>
 </BaseLayout>

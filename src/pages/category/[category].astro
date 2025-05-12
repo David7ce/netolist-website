@@ -1,0 +1,74 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getPopularAppsByCategory, getSubcategoriesWithTopApps } from "../../services/supabase";
+import { supabase } from "../../config/supabaseClient";
+
+// Obtener datos dinámicos
+const { category } = Astro.params;
+const title = `${category} - AlternativeTo Clone`;
+const popularApps = await getPopularAppsByCategory(category);
+const subcategories = await getSubcategoriesWithTopApps(category);
+
+// Exportar getStaticPaths para generar rutas dinámicas
+export async function getStaticPaths() {
+  const { data: categories, error } = await supabase.from("category").select("slug");
+
+  if (error) {
+    console.error("Error fetching categories:", error);
+    return [];
+  }
+
+  return categories.map((category) => ({
+    params: { category: category.slug },
+  }));
+}
+---
+
+<BaseLayout title={title}>
+  <!-- Título, subtítulo, barra de navegación y descripción -->
+  <section class="category-header">
+    <h1>{category}</h1>
+    <p class="subtitle">Explore the best apps in the {category} category.</p>
+    <nav class="breadcrumb">
+      <a href="/">Home</a> / <span>{category}</span>
+    </nav>
+    <p class="description">
+      Discover apps and tools that fit your needs in the {category} category. Browse popular apps, explore subcategories, and find the perfect solution.
+    </p>
+  </section>
+
+  <!-- Sección de apps populares -->
+  <section class="popular-apps">
+    <h2>Popular Apps</h2>
+    <div class="apps-grid">
+      {popularApps.map(app => (
+        <div class="app-card">
+          <img src={app.logo} alt={`${app.name} logo`} />
+          <h3>{app.name}</h3>
+          <p>{app.description}</p>
+          <a href={`/app/${app.slug}`} class="btn">View App</a>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Sección de subcategorías -->
+  <section class="subcategories">
+    <h2>Subcategories</h2>
+    <div class="subcategories-grid">
+      {subcategories.map(subcategory => (
+        <div class="subcategory-card">
+          <h3>{subcategory.name}</h3>
+          <ul>
+            {subcategory.topApps.map(app => (
+              <li>
+                <a href={`/app/${app.slug}`}>{app.name}</a>
+              </li>
+            ))}
+          </ul>
+          <a href={`/subcategory/${subcategory.slug}`} class="btn">View All</a>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
