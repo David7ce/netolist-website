@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { supabase } from "../config/supabaseClient";
+import { supabase } from "../config/supabaseClient.ts";
 
 // Fetch categories from Supabase
 const { data: categories, error } = await supabase.from("category").select("*");

@@ -1,16 +1,24 @@
 ---
 import "../styles/header.css";
+import ThemeIcon from "./ThemeIcon.astro";
+import UserIcon from "../components/UserIcon.astro";
+
+const { user } = Astro.props;
 
 const navItems = [
   { name: "Home", href: "/" },
   { name: "Browse all apps", href: "/browse-apps" },
-  { name: "Log In", href: "/log-in" },
 ];
+
+// Si no hay usuario, agregar "Sign In" al menú de navegación
+if (!user) {
+  navItems.push({ name: "Sign In", href: "/sign-in" });
+}
 ---
 
 <header class="header">
   <div class="container">
-    <h1 class="logo"><a href="/">AlternativeTo Light</a></h1>
+    <h1 class="logo"><a href="/">NetoList</a></h1>
     <nav>
       <ul class="nav">
         {
@@ -20,7 +28,15 @@ const navItems = [
             </li>
           ))
         }
+        {
+          user && (
+            <li>
+              <UserIcon user={user} />
+            </li>
+          )
+        }
       </ul>
     </nav>
+    <ThemeIcon />
   </div>
 </header>

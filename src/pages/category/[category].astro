@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getPopularAppsByCategory, getSubcategoriesWithTopApps } from "../../services/supabase";
-import { supabase } from "../../config/supabaseClient";
+import { supabase } from "../../config/supabaseClient.ts";
 
 // Obtener datos dinámicos
 const { category } = Astro.params;

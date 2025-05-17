@@ -23,3 +23,7 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 TODO-auth.md
+
+# documentation folders
+design/
+docs/

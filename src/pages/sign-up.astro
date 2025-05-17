@@ -1,54 +1,18 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { signUp } from "../services/auth.js";
-
-let email = "";
-let password = "";
-let message = "";
-
-async function handleSignUp(event: { preventDefault: () => void; }) {
-  event.preventDefault();
-  const result = await signUp(email, password);
-
-  if (result.success) {
-    message = "Registration successful! Please check your email to confirm your account.";
-  } else {
-    message = result.message || "An error occurred during registration.";
-  }
-
-  // Actualizar el DOM manualmente
-  const messageElement = document.getElementById("message");
-  if (messageElement) {
-    messageElement.innerText = message;
-  }
-}
 ---
 
 <BaseLayout title="Sign Up">
-  <main>
-    <h1>Sign Up</h1>
-    <form id="sign-up-form" onsubmit="handleSignUp(event)">
-      <label for="email">Email:</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        required
-        oninput="email = this.value"
-      />
+  <h1>Sign Up</h1>
+  <form id="sign-up-form" method="post">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required />
 
-      <label for="password">Password:</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        required
-        oninput="password = this.value"
-      />
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required />
 
-      <button type="submit">Register</button>
-    </form>
+    <button type="submit">Register</button>
+  </form>
 
-    <p id="message">{message}</p>
-  </main>
+  <p>Already have an account? <a href="/signin">Sign in</a></p>
 </BaseLayout>
