@@ -8,27 +8,37 @@ export const GET: APIRoute = async ({ cookies, redirect }) => {
     return redirect("/signin");
   }
 
-  const { data, error } = await supabase.auth.getUser(accessToken);
+  const { data: userData, error: userError } = await supabase.auth.getUser(accessToken);
 
-  if (error || !data?.user) {
+  if (userError || !userData?.user) {
     cookies.delete("sb-access-token", { path: "/" });
     cookies.delete("sb-refresh-token", { path: "/" });
     return redirect("/signin");
+  }
+
+  // Ahora buscar el perfil
+  const { data: profileData, error: profileError } = await supabase
+    .from("profiles")
+    .select("name")
+    .eq("id", userData.user.id)
+    .single();
+
+  if (profileError) {
+    console.error("Error loading profile:", profileError.message);
   }
 
   return new Response(
     JSON.stringify({
       message: "Welcome to the protected dashboard",
       user: {
-        id: data.user.id,
-        email: data.user.email,
+        id: userData.user.id,
+        email: userData.user.email,
+        name: profileData?.name || null,
       },
     }),
     {
       status: 200,
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
     }
   );
 };
