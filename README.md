@@ -6,19 +6,20 @@ A diferencia de AlternativeTo, este proyecto prioriza la calidad sobre la cantid
 
 ---
 
-## 🌐 Páginas principales
+## 🔵 Páginas principales
 
 - `/` – **Home**:  
   - Header: logo, menú, buscador, opciones  
   - Main: apps populares, recomendaciones del equipo, categorías destacadas  
-  - Footer
+  - Footer: copyright, privacy, FAQ, About
 
-- `/categories` – Listado general de categorías + apps compatibles por sistema operativo  
+- `/browse-all` – Listado general de categorías + apps compatibles por sistema operativo  
 - `/category/[nombre]` – Subcategorías de la categoría seleccionada  
-- `/app/[nombre]` – Ficha detallada de cada app  
-- `/community` – Lista de usuarios registrados  
+- `/app/[nombre]` – Ficha detallada de cada app
+- `/community` – Lista de usuarios registrados
 - `/user/[nombre]` – Perfil público con reviews, favoritos y listas  
-- `/suggest/app` – Formulario para proponer una app nueva
+- `/user/[nombre]/lists` – Listado de apps creado por usuarios
+- `/user/[nombre]/favs` – Listado de apps creado por usuarios
 
 ---
 
@@ -26,50 +27,22 @@ A diferencia de AlternativeTo, este proyecto prioriza la calidad sobre la cantid
 
 - Añadir apps (por ahora desde la base de datos manualmente)
 - Usuarios registrados pueden:
-  - Valorar apps (rating)
-  - Escribir reseñas (review)
-  - Añadir favoritos (likes)
-  - Crear y exportar listas personalizadas (JSON/CSV)
+  - Escribir reseñas con nota  (review)
+  - Dar "me gusta" que añade a favoritos (likes)
+  - Crear listados de pps
+  - Exportar listas de favoritos o listas personalizadas (JSON/CSV)
 
 ---
 
 ## 🗃️ Modelo de Base de Datos (Supabase)
 
-```sql
-user (
-  id,
-  email,
-  name,
-  password
-)
-
-app (
-  id,
-  name,
-  description,
-  type_app (FK → category),
-  os_compatibility,
-  link_website,
-  link_store,
-  link_source_code,
-  company_dev_name,
-  licensing,
-  rating,
-  images[]
-)
-
-category (
-  id,
-  name,
-  subcategory[]
-)
-```
+Supabase desplegado online, basado en PostgresSQL.
 
 ---
 
-## 🎨 Estilo
+## 🎨 Estilos
 
-CSS externo básico con clases semánticas bien organizadas en el HTML para facilitar el mantenimiento y futuras mejoras.
+Estilos con Tailwind y algún CSS externo básico con clases semánticas bien organizadas.
 
 ---
 
@@ -95,7 +68,3 @@ CSS externo básico con clases semánticas bien organizadas en el HTML para faci
 🚧 En desarrollo inicial. Algunas funcionalidades pueden estar incompletas o sujetas a cambios.
 
 ---
-
-## 📄 Licencia
-
-MIT (o lo que vayas a usar)

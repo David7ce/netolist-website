@@ -1,0 +1,25 @@
+---
+// No necesita props por ahora
+---
+
+<form action="/api/signout" method="POST">
+  <button type="submit" class="signout-button">
+    Sign Out
+  </button>
+</form>
+
+<style>
+  .signout-button {
+    background-color: #e53e3e;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .signout-button:hover {
+    background-color: #c53030;
+  }
+</style>

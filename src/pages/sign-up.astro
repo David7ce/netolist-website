@@ -5,8 +5,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 <BaseLayout title="Sign Up">
   <h1>Sign Up</h1>
   <form id="sign-up-form" action="/api/signup" method="POST">
-    <label for="name">Name:</label>
-    <input name="name" type="text" placeholder="Name" required />
+    <!-- <label for="username">Name:</label>
+    <input type="text" id="username" name="username" required /> -->
 
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" required />
@@ -17,5 +17,5 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <button type="submit">Register</button>
   </form>
 
-  <p>Already have an account? <a href="/signin">Sign in</a></p>
+  <p>Already have an account? <a href="/sign-in">Sign in</a></p>
 </BaseLayout>

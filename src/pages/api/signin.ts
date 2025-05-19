@@ -13,6 +13,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     );
   }
 
+  // TODO: Fix login
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
@@ -20,7 +21,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
 
   if (error || !data.session) {
     return new Response(
-      JSON.stringify({ message: "usuario no existe" }),
+      JSON.stringify({ message: "User does not exists" }),
       { status: 401, headers: { "Content-Type": "application/json" } }
     );
   }

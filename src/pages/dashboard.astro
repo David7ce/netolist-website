@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { supabase } from "../config/supabaseClient";
+import SignOutButton from "../components/SignOutButton.astro";
 
 const accessToken = Astro.cookies.get("sb-access-token")?.value;
 const refreshToken = Astro.cookies.get("sb-refresh-token")?.value;
@@ -35,7 +36,5 @@ const user = data.user;
     <p>Email: {user.email}</p>
   </div>
 
-  <form action="/api/auth/signout" method="post">
-    <button type="submit">Sign Out</button>
-  </form>
+  <SignOutButton />
 </BaseLayout>
