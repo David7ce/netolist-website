@@ -2,7 +2,7 @@
 const { user } = Astro.props;
 ---
 
-<a href={`/user/${user.name}/index`} class="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-blue-500">
+<a href={`/user/${user.id}`} class="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-blue-500">
   <img 
     src={`https://api.dicebear.com/7.x/thumbs/svg?seed=${user.email}`} 
     alt="Avatar"

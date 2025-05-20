@@ -13,6 +13,8 @@
   - about.astro: explicación de la web
   - app-x.astro:
   - [x] Authentication (sign-in.astro, sign-out.astro, sign-up.astro)
+  - [] Mostrar usuario con nombre de usuario en lugar de ID: "user/<name>"
+  - [] sesión entre páginas
   - User info (index.astro, edit.astro, likes.astro, reviews.astro, lists.astro)
 
 - Funcionalidad:
@@ -24,6 +26,7 @@
     - Auth: login, logout, register
 - CRUD de User, Reviews, Likes, Lists apps
 - Opcional futuro: CRUD de apps solo para rol admin
+- 
 
 - Estilos:
   - Modo claro y modo oscuro

@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+const { id } = Astro.params;
+
+// Aquí simulamos la carga de datos del usuario por id
+const userInfo = {
+  id,
+  name: "Nombre de ejemplo",
+  email: "ejemplo@correo.com",
+  // más campos si quieres
+};
+---
+
+<BaseLayout title={`Perfil de ${userInfo.name}`}>
+  <h1>Perfil de {userInfo.name}</h1>
+
+  <section>
+    <p><strong>ID:</strong> {userInfo.id}</p>
+    <p><strong>Nombre:</strong> {userInfo.name}</p>
+    <p><strong>Email:</strong> {userInfo.email}</p>
+    <!-- Más campos si tienes -->
+  </section>
+</BaseLayout>
