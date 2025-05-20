@@ -6,34 +6,43 @@ import SignOutButton from "../components/SignOutButton.astro";
 const accessToken = Astro.cookies.get("sb-access-token")?.value;
 const refreshToken = Astro.cookies.get("sb-refresh-token")?.value;
 
-// Si no hay tokens, redirigir
 if (!accessToken || !refreshToken) {
   return Astro.redirect("/sign-in");
 }
 
-// Intentar restaurar sesión
-const { data, error } = await supabase.auth.setSession({
+const { data: sessionData, error } = await supabase.auth.setSession({
   access_token: accessToken,
   refresh_token: refreshToken,
 });
 
-// Si hay error al restaurar, redirigir al login
-if (error || !data?.user) {
+if (error || !sessionData?.user) {
   Astro.cookies.delete("sb-access-token", { path: "/" });
   Astro.cookies.delete("sb-refresh-token", { path: "/" });
   return Astro.redirect("/sign-in");
 }
 
-const user = data.user;
+const user = sessionData.user;
+
+// Obtener el perfil
+const { data: profileData, error: profileError } = await supabase
+  .from("user_profile")
+  .select("username")
+  .eq("id", user.id)
+  .single();
+
+if (profileError) {
+  console.error("Error al cargar el perfil:", profileError.message);
+}
 ---
 
 <BaseLayout title="Dashboard" user={user}>
-  <h1>Welcome to your dashboard, {user?.email || 'Guest'}!</h1>
-  <p>You're successfully logged in!</p>
+  <h1>¡Hola, {profileData?.username || user.email}!</h1>
+  <p>Has iniciado sesión correctamente.</p>
 
   <div class="info">
     <p>User ID: {user.id}</p>
     <p>Email: {user.email}</p>
+    <p>Nombre: {profileData?.username || "No disponible"}</p>
   </div>
 
   <SignOutButton />

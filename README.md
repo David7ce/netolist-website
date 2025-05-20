@@ -1,4 +1,4 @@
-# 🧩 AlternativeLite
+# 🧩 NetoList
 
 Clon minimalista de [AlternativeTo.net](https://alternativeto.net), desarrollado con **Astro JS** y **Supabase**.
 
